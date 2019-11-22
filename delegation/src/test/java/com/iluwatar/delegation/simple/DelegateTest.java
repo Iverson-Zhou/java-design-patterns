@@ -1,6 +1,6 @@
-/**
+/*
  * The MIT License
- * Copyright (c) 2014-2016 Ilkka Seppälä
+ * Copyright © 2014-2019 Ilkka Seppälä
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,6 +20,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
 package com.iluwatar.delegation.simple;
 
 import ch.qos.logback.classic.Logger;
@@ -28,26 +29,29 @@ import ch.qos.logback.core.AppenderBase;
 import com.iluwatar.delegation.simple.printers.CanonPrinter;
 import com.iluwatar.delegation.simple.printers.EpsonPrinter;
 import com.iluwatar.delegation.simple.printers.HpPrinter;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.slf4j.LoggerFactory;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Test for Delegation Pattern
+ */
 public class DelegateTest {
 
   private InMemoryAppender appender;
 
-  @Before
+  @BeforeEach
   public void setUp() {
     appender = new InMemoryAppender();
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
     appender.stop();
   }
@@ -78,6 +82,9 @@ public class DelegateTest {
     assertEquals("Epson Printer : Test Message Printed", appender.getLastMessage());
   }
 
+  /**
+   * Logging Appender
+   */
   private class InMemoryAppender extends AppenderBase<ILoggingEvent> {
 
     private List<ILoggingEvent> log = new LinkedList<>();
